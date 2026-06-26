@@ -1,5 +1,5 @@
-@import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap");
-@import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap');
+@import 'tailwindcss';
 
 /*
   Claude.com design system, mapped into Tailwind v4 theme tokens.
@@ -41,9 +41,10 @@
   --color-error: #c64545;
 
   /* Type families */
-  --font-display: "Cormorant Garamond", "Tiempos Headline", Garamond, "Times New Roman", serif;
-  --font-sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+  --font-display:
+    'Cormorant Garamond', 'Tiempos Headline', Garamond, 'Times New Roman', serif;
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, monospace;
 
   /* Radii */
   --radius-xs: 4px;
@@ -92,23 +93,53 @@ body {
 }
 
 /* Thin, branded scrollbars inside board columns. */
-.scroll-cream::-webkit-scrollbar { width: 8px; height: 8px; }
+.scroll-cream::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
 .scroll-cream::-webkit-scrollbar-thumb {
   background: var(--color-hairline);
   border-radius: 9999px;
 }
-.scroll-cream::-webkit-scrollbar-track { background: transparent; }
+.scroll-cream::-webkit-scrollbar-track {
+  background: transparent;
+}
 
 /* Modal entrance + banner attention pulse. */
 @keyframes pop-in {
-  from { opacity: 0; transform: translateY(8px) scale(0.98); }
-  to { opacity: 1; transform: translateY(0) scale(1); }
+  from {
+    opacity: 0;
+    transform: translateY(8px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
 }
-@keyframes fade-in { from { opacity: 0; } to { opacity: 1; } }
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
 @keyframes stagger-up {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
-.animate-pop-in { animation: pop-in 0.22s cubic-bezier(0.22, 1, 0.36, 1) both; }
-.animate-fade-in { animation: fade-in 0.18s ease-out both; }
-.animate-stagger-up { animation: stagger-up 0.4s cubic-bezier(0.22, 1, 0.36, 1) both; }
+.animate-pop-in {
+  animation: pop-in 0.22s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+.animate-fade-in {
+  animation: fade-in 0.18s ease-out both;
+}
+.animate-stagger-up {
+  animation: stagger-up 0.4s cubic-bezier(0.22, 1, 0.36, 1) both;
+}

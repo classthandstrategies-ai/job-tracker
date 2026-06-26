@@ -36,7 +36,7 @@ export default function KanbanBoard({ applications, onChangeStatus, onOpenCard }
   }, [applications]);
 
   const activeApp = activeId
-    ? applications.find((a) => a.id === activeId) ?? null
+    ? (applications.find((a) => a.id === activeId) ?? null)
     : null;
 
   const handleDragEnd = ({ active, over }) => {
@@ -68,7 +68,9 @@ export default function KanbanBoard({ applications, onChangeStatus, onOpenCard }
         ))}
       </div>
 
-      <DragOverlay dropAnimation={{ duration: 180, easing: 'cubic-bezier(0.22,1,0.36,1)' }}>
+      <DragOverlay
+        dropAnimation={{ duration: 180, easing: 'cubic-bezier(0.22,1,0.36,1)' }}
+      >
         {activeApp ? (
           <div className="w-72 sm:w-[19rem]">
             <ApplicationCard application={activeApp} onOpen={() => {}} overlay />

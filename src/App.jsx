@@ -28,15 +28,14 @@ function App() {
     const q = query.trim().toLowerCase();
     if (!q) return applications;
     return applications.filter(
-      (a) =>
-        a.company.toLowerCase().includes(q) || a.role.toLowerCase().includes(q),
+      (a) => a.company.toLowerCase().includes(q) || a.role.toLowerCase().includes(q),
     );
   }, [applications, query]);
 
   const dueFollowUps = useMemo(() => getDueFollowUps(applications), [applications]);
 
   const editing =
-    modal?.mode === 'edit' ? applications.find((a) => a.id === modal.id) ?? null : null;
+    modal?.mode === 'edit' ? (applications.find((a) => a.id === modal.id) ?? null) : null;
 
   const openEdit = (app) => setModal({ mode: 'edit', id: app.id });
 
@@ -65,8 +64,8 @@ function App() {
             className="mb-6 rounded-lg border border-error/30 bg-error/10 px-4 py-3 text-[14px] text-error"
           >
             <strong className="font-semibold">Changes aren't being saved.</strong> Your
-            browser blocked local storage (it may be full or in private mode). Export a CSV
-            backup to avoid losing data on reload.
+            browser blocked local storage (it may be full or in private mode). Export a
+            CSV backup to avoid losing data on reload.
           </div>
         ) : null}
 
@@ -102,7 +101,11 @@ function App() {
       </main>
 
       {modal?.mode === 'add' ? (
-        <ApplicationFormModal mode="add" onSubmit={handleSubmit} onClose={() => setModal(null)} />
+        <ApplicationFormModal
+          mode="add"
+          onSubmit={handleSubmit}
+          onClose={() => setModal(null)}
+        />
       ) : null}
 
       {modal?.mode === 'edit' && editing ? (
@@ -130,8 +133,8 @@ function EmptyState({ onAdd, onSeed }) {
         Track your first application
       </h2>
       <p className="mx-auto mt-2 max-w-md text-[15px] text-muted">
-        Add a job you've applied to, then drag it across the board as you move
-        through screens, interviews, and offers.
+        Add a job you've applied to, then drag it across the board as you move through
+        screens, interviews, and offers.
       </p>
       <div className="mt-6 flex items-center justify-center gap-3">
         <button

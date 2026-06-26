@@ -13,16 +13,24 @@ export default function FollowUpBanner({ dueFollowUps, onOpen }) {
   return (
     <div className="animate-stagger-up rounded-lg bg-primary p-6 text-on-primary shadow-[0_10px_30px_-12px_rgba(204,120,92,0.6)]">
       <div className="flex flex-wrap items-center gap-x-3 gap-y-2">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="shrink-0">
+        <svg
+          width="20"
+          height="20"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          className="shrink-0"
+        >
           <path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9" />
           <path d="M13.73 21a2 2 0 01-3.46 0" />
         </svg>
         <p className="font-display text-[22px] leading-none">
           {count} follow-up{count === 1 ? '' : 's'} due
         </p>
-        <span className="text-[14px] text-on-primary/80">
-          — time to check back in.
-        </span>
+        <span className="text-[14px] text-on-primary/80">— time to check back in.</span>
       </div>
 
       <div className="mt-4 flex flex-wrap gap-2">

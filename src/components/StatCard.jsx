@@ -27,7 +27,9 @@ export default function StatCard({ label, value, suffix = '', hint, accent = fal
         ) : null}
       </p>
       {hint ? (
-        <p className={`mt-1.5 text-[12px] ${accent ? 'text-on-dark-soft' : 'text-muted-soft'}`}>
+        <p
+          className={`mt-1.5 text-[12px] ${accent ? 'text-on-dark-soft' : 'text-muted-soft'}`}
+        >
           {hint}
         </p>
       ) : null}

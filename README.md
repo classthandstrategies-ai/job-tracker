@@ -1,51 +1,127 @@
 # Job Tracker
 
-A warm, editorial kanban board for tracking job applications through your pipeline — drag cards between stages, log follow-ups, and watch your funnel metrics. Everything persists locally in your browser; there is no backend and no account.
+> A warm, editorial kanban board for tracking your job applications — drag cards through each stage, log follow-ups, and watch your funnel metrics. 100% client-side, no account required.
 
-Built with **React + Vite + Tailwind CSS v4**, styled after the Claude.com design language (cream canvas, coral accent, navy surfaces).
+[![CI](https://github.com/classthandstrategies-ai/job-tracker/actions/workflows/ci.yml/badge.svg)](https://github.com/classthandstrategies-ai/job-tracker/actions/workflows/ci.yml)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](./LICENSE)
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fclassthandstrategies-ai%2Fjob-tracker)
+
+---
+
+## Screenshot
+
+<!-- 📸 Add a screenshot or short demo GIF here. Save the file to docs/screenshot.png and uncomment the line below. -->
+<!-- ![Job Tracker board](docs/screenshot.png) -->
+
+> **📸 Add your screenshot here:** drop a still or short GIF at `docs/screenshot.png`, then uncomment the image line above. A wide shot of the board with a few cards plus the dashboard and follow-up banner shows the app off best.
+
+## Live demo
+
+🔗 **[View the live demo →](https://your-deployment-url.vercel.app)**
+
+> _Replace the URL above with your deployment link once you've deployed (see [Deployment](#deployment))._
 
 ## Features
 
-- **Kanban board** — one column per status (Applied → Phone Screen → Interview → Offer → Rejected → Withdrawn). Drag cards between columns (powered by [`@dnd-kit`](https://dndkit.com)) to update status; full keyboard drag support.
-- **Application cards** show company, role, date applied, days-since-applied, and an inline follow-up indicator.
-- **Add / detail-edit modal** with company, role, status, salary, posting link, editable notes, and an editable next-follow-up date. Accessible: focus-trapped, labelled fields, announced validation.
-- **Dashboard stats** — active applications, response rate, interview-conversion rate, and applications this week.
-- **Follow-up alert banner** surfacing any application whose follow-up date has passed (or is due today).
-- **Search** by company or role, and **CSV export** of all applications (with formula-injection protection).
-- **Local persistence** via a `useApplications` hook backed by `localStorage`.
+- **Kanban pipeline** — one column per status (Applied → Phone Screen → Interview → Offer → Rejected → Withdrawn). Drag cards between columns (via [`@dnd-kit`](https://dndkit.com)) to update status, with a dedicated drag handle and full keyboard-drag support.
+- **Rich cards** — each shows company, role, date applied, days-since-applied, and an inline "follow-up due" indicator.
+- **Add & edit modals** — capture company, role, status, salary, posting link, free-form notes, and a next-follow-up date. Fully accessible: focus-trapped, labelled fields, and screen-reader-announced validation.
+- **Dashboard metrics** — active applications, response rate, interview-conversion rate, and applications submitted this week.
+- **Follow-up alerts** — a banner surfaces every application whose follow-up date has arrived or passed.
+- **Search & filter** — instantly filter the board by company or role.
+- **CSV export** — download all applications as a spreadsheet, hardened against formula injection.
+- **Local-first persistence** — everything is saved to your browser's `localStorage`; nothing leaves your machine.
 
-## Getting started
+## Tech stack
+
+| Layer       | Choice                                                               |
+| ----------- | -------------------------------------------------------------------- |
+| Framework   | [React 19](https://react.dev)                                        |
+| Build tool  | [Vite 8](https://vite.dev)                                           |
+| Styling     | [Tailwind CSS v4](https://tailwindcss.com) (via `@tailwindcss/vite`) |
+| Drag & drop | [@dnd-kit](https://dndkit.com)                                       |
+| Linting     | [oxlint](https://oxc.rs)                                             |
+| Formatting  | [Prettier](https://prettier.io)                                      |
+| Fonts       | Cormorant Garamond · Inter · JetBrains Mono (Google Fonts)           |
+
+## Prerequisites
+
+- **Node.js 20 or newer** ([nvm](https://github.com/nvm-sh/nvm) recommended)
+- **npm** (ships with Node)
+
+## Installation
 
 ```bash
-npm install      # install dependencies
-npm run dev      # start the dev server (http://localhost:5173)
-npm run build    # production build to dist/
-npm run preview  # preview the production build locally
-npm run lint     # run oxlint
+# 1. Clone the repository
+git clone https://github.com/classthandstrategies-ai/job-tracker.git
+cd job-tracker
+
+# 2. Install dependencies
+npm install
+
+# 3. Start the dev server
+npm run dev
 ```
 
-Requires Node.js 20+.
+Then open **http://localhost:5173** in your browser.
+
+### Available scripts
+
+| Command                | Description                                   |
+| ---------------------- | --------------------------------------------- |
+| `npm run dev`          | Start the Vite dev server with HMR            |
+| `npm run build`        | Production build to `dist/`                   |
+| `npm run preview`      | Preview the production build locally          |
+| `npm run lint`         | Lint with oxlint                              |
+| `npm run format`       | Format all files with Prettier                |
+| `npm run format:check` | Check formatting without writing (used in CI) |
+
+## Environment variables
+
+**None required.** Job Tracker is fully client-side and stores all data in `localStorage`, so it runs, builds, and deploys with zero configuration.
+
+A [`.env.example`](./.env.example) is included as a template for forks that add a backend or third-party services. To use it, copy it to `.env` (which is gitignored) and add your values. Only variables prefixed with `VITE_` are exposed to client code.
+
+## Usage
+
+1. **Add an application** — click **Add application** (or load the bundled sample data on first run) and fill in the company and role. Everything else is optional.
+2. **Move it through your pipeline** — drag a card by its grip handle into the next column, or change its status from the edit modal. Keyboard users can grab a card's handle with <kbd>Space</kbd> and move it with the arrow keys.
+3. **Open a card** — click it (or focus it and press <kbd>Enter</kbd>) to view and edit details, add notes, or set a next-follow-up date.
+4. **Stay on top of follow-ups** — when a follow-up date arrives, the application appears in the alert banner at the top.
+5. **Find anything** — use the search box to filter by company or role.
+6. **Back up or analyze** — click **Export CSV** to download your full list as a spreadsheet.
+
+Your data lives only in this browser. Clearing site data (or using a different browser/device) starts you fresh — use CSV export to keep a backup.
 
 ## Project structure
 
 ```
-src/
-  models/application.js     # Status enum, createApplication factory, normalizeApplication, STATUS_META
-  hooks/useApplications.js  # localStorage-backed CRUD hook (add/update/remove/clearAll/replaceAll)
-  selectors/
-    stats.js                # dashboard metrics (pure)
-    followUps.js            # due-follow-up selector (pure)
-  lib/
-    dates.js                # local-timezone ISO date helpers
-    csv.js                  # CSV serialization + download (RFC-4180 + formula-injection guard)
-    sampleData.js           # demo data
-  components/               # Modal, ApplicationFormModal, ApplicationCard, Column,
-                            # KanbanBoard, StatCard, DashboardHeader, FollowUpBanner, Toolbar
-  index.css                 # Tailwind v4 @theme design tokens, fonts, animations
-  App.jsx                   # composition, search filter, modal orchestration
+job-tracker/
+├─ .github/workflows/ci.yml   # CI: lint, format check, build
+├─ public/                    # static assets (favicon)
+├─ src/
+│  ├─ components/             # UI: Modal, ApplicationFormModal, ApplicationCard,
+│  │                          #     Column, KanbanBoard, StatCard, DashboardHeader,
+│  │                          #     FollowUpBanner, Toolbar
+│  ├─ hooks/
+│  │  └─ useApplications.js   # localStorage-backed CRUD hook
+│  ├─ lib/
+│  │  ├─ dates.js             # local-timezone ISO date helpers
+│  │  ├─ csv.js               # CSV export (RFC-4180 + formula-injection guard)
+│  │  └─ sampleData.js        # demo data
+│  ├─ models/
+│  │  └─ application.js        # Status enum, createApplication, normalizeApplication
+│  ├─ selectors/
+│  │  ├─ stats.js             # dashboard metrics (pure)
+│  │  └─ followUps.js         # due-follow-up selector (pure)
+│  ├─ App.jsx                 # composition, search, modal orchestration
+│  ├─ index.css               # Tailwind v4 @theme tokens, fonts, animations
+│  └─ main.jsx                # React entry point
+├─ vercel.json                # deploy config + security headers
+└─ vite.config.js
 ```
 
-The logic layer (`selectors/`, `lib/`) is pure and framework-free, so metrics, dates, and CSV behavior are testable independently of React.
+The `selectors/` and `lib/` layers are pure and framework-free, so the metrics, date, and CSV logic can be reasoned about and tested independently of React.
 
 ### Data model
 
@@ -65,32 +141,46 @@ The logic layer (`selectors/`, `lib/`) is pure and framework-free, so metrics, d
 
 ## Deployment
 
-The app is a static SPA — the production build in `dist/` can be served by any static host.
+This project is **optimized for [Vercel](https://vercel.com)** and deploys with zero configuration — Vercel auto-detects Vite, so the build command (`npm run build`) and output directory (`dist`) are picked up automatically. The included [`vercel.json`](./vercel.json) adds security response headers (Content-Security-Policy, `X-Frame-Options`, `X-Content-Type-Options`, `Referrer-Policy`, `Permissions-Policy`) and long-lived caching for hashed assets.
 
-### Vercel (recommended)
+### One-click deploy
 
-Vercel zero-config-detects Vite. The included [`vercel.json`](./vercel.json) adds security response headers (CSP, `X-Content-Type-Options`, `Referrer-Policy`, `Permissions-Policy`, frame protection) and long-lived caching for hashed assets.
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fclassthandstrategies-ai%2Fjob-tracker)
+
+### Or via the CLI
 
 ```bash
 npm i -g vercel
-vercel            # preview deploy
-vercel --prod     # production deploy
+vercel            # create a preview deployment
+vercel --prod     # promote to production
 ```
 
-### Any static host
+### Any other static host
+
+The build output is plain static files, so any static host works (Netlify, Cloudflare Pages, GitHub Pages, S3, nginx, …):
 
 ```bash
-npm run build     # outputs dist/
-# serve the contents of dist/ (Netlify, Cloudflare Pages, GitHub Pages, S3, nginx, …)
+npm run build     # outputs to dist/
+# then serve the contents of dist/
 ```
 
-## Security & privacy
+| Setting          | Value           |
+| ---------------- | --------------- |
+| Build command    | `npm run build` |
+| Output directory | `dist`          |
+| Node version     | 20+             |
 
-- **No backend, no telemetry, no accounts.** All data lives in your browser's `localStorage`; nothing is transmitted.
-- **CSV export is hardened** against spreadsheet formula injection (cells beginning with `= + - @` are neutralized).
-- **Security headers** (CSP and friends) are configured in `vercel.json` for the production deployment.
-- The only third-party network request is Google Fonts (Cormorant Garamond / Inter / JetBrains Mono); the CSP is scoped to allow exactly that.
+## Contributing
+
+Contributions are welcome! Bug reports, feature ideas, and PRs all help. Please read **[CONTRIBUTING.md](./CONTRIBUTING.md)** for how to file issues, branch naming, and the PR process. New contributors are especially welcome.
 
 ## License
 
-Private project — not currently licensed for redistribution.
+Released under the [MIT License](./LICENSE). © 2026 Geetesh.
+
+## Credits & acknowledgments
+
+- **Design language** inspired by the [Claude.com](https://claude.com) / Anthropic aesthetic — warm cream canvas, coral accent, and navy product surfaces.
+- **Fonts** served by [Google Fonts](https://fonts.google.com): Cormorant Garamond, Inter, and JetBrains Mono.
+- Built with [React](https://react.dev), [Vite](https://vite.dev), [Tailwind CSS](https://tailwindcss.com), and [@dnd-kit](https://dndkit.com).
+- No external data sources, APIs, or datasets are used — all data is user-entered and stored locally.

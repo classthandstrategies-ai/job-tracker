@@ -95,13 +95,18 @@ export default function ApplicationFormModal({
       <form id="application-form" onSubmit={submit} className="space-y-4">
         {isEdit && appliedAgo !== null ? (
           <p className="-mt-1 text-[13px] text-muted-soft">
-            Applied {appliedAgo === 0 ? 'today' : `${appliedAgo} day${appliedAgo === 1 ? '' : 's'} ago`}
+            Applied{' '}
+            {appliedAgo === 0
+              ? 'today'
+              : `${appliedAgo} day${appliedAgo === 1 ? '' : 's'} ago`}
           </p>
         ) : null}
 
         <div className="grid grid-cols-2 gap-4">
           <div>
-            <label htmlFor="app-company" className={FIELD_LABEL}>Company *</label>
+            <label htmlFor="app-company" className={FIELD_LABEL}>
+              Company *
+            </label>
             <input
               id="app-company"
               className={FIELD_INPUT}
@@ -112,13 +117,19 @@ export default function ApplicationFormModal({
               aria-describedby={companyError ? 'app-company-error' : undefined}
             />
             {companyError ? (
-              <p id="app-company-error" role="alert" className="mt-1 text-[12px] text-error">
+              <p
+                id="app-company-error"
+                role="alert"
+                className="mt-1 text-[12px] text-error"
+              >
                 Company is required.
               </p>
             ) : null}
           </div>
           <div>
-            <label htmlFor="app-role" className={FIELD_LABEL}>Role *</label>
+            <label htmlFor="app-role" className={FIELD_LABEL}>
+              Role *
+            </label>
             <input
               id="app-role"
               className={FIELD_INPUT}
@@ -138,8 +149,15 @@ export default function ApplicationFormModal({
 
         <div className="grid grid-cols-2 gap-4">
           <div>
-            <label htmlFor="app-status" className={FIELD_LABEL}>Status</label>
-            <select id="app-status" className={FIELD_INPUT} value={form.status} onChange={set('status')}>
+            <label htmlFor="app-status" className={FIELD_LABEL}>
+              Status
+            </label>
+            <select
+              id="app-status"
+              className={FIELD_INPUT}
+              value={form.status}
+              onChange={set('status')}
+            >
               {STATUS_VALUES.map((s) => (
                 <option key={s} value={s}>
                   {s}
@@ -148,7 +166,9 @@ export default function ApplicationFormModal({
             </select>
           </div>
           <div>
-            <label htmlFor="app-date-applied" className={FIELD_LABEL}>Date applied</label>
+            <label htmlFor="app-date-applied" className={FIELD_LABEL}>
+              Date applied
+            </label>
             <input
               id="app-date-applied"
               type="date"
@@ -162,7 +182,9 @@ export default function ApplicationFormModal({
 
         <div className="grid grid-cols-2 gap-4">
           <div>
-            <label htmlFor="app-salary" className={FIELD_LABEL}>Salary</label>
+            <label htmlFor="app-salary" className={FIELD_LABEL}>
+              Salary
+            </label>
             <input
               id="app-salary"
               className={FIELD_INPUT}
@@ -172,7 +194,9 @@ export default function ApplicationFormModal({
             />
           </div>
           <div>
-            <label htmlFor="app-next-followup" className={FIELD_LABEL}>Next follow-up</label>
+            <label htmlFor="app-next-followup" className={FIELD_LABEL}>
+              Next follow-up
+            </label>
             <input
               id="app-next-followup"
               type="date"
@@ -184,7 +208,9 @@ export default function ApplicationFormModal({
         </div>
 
         <div>
-          <label htmlFor="app-link" className={FIELD_LABEL}>Posting link</label>
+          <label htmlFor="app-link" className={FIELD_LABEL}>
+            Posting link
+          </label>
           <input
             id="app-link"
             className={FIELD_INPUT}
@@ -195,7 +221,9 @@ export default function ApplicationFormModal({
         </div>
 
         <div>
-          <label htmlFor="app-notes" className={FIELD_LABEL}>Notes</label>
+          <label htmlFor="app-notes" className={FIELD_LABEL}>
+            Notes
+          </label>
           <textarea
             id="app-notes"
             className={`${FIELD_INPUT} min-h-24 resize-y`}

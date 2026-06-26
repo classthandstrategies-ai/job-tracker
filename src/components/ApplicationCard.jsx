@@ -55,7 +55,9 @@ export default function ApplicationCard({ application, onOpen, overlay = false }
       <div
         role={overlay ? undefined : 'button'}
         tabIndex={overlay ? undefined : 0}
-        aria-label={overlay ? undefined : `Open ${application.role} at ${application.company}`}
+        aria-label={
+          overlay ? undefined : `Open ${application.role} at ${application.company}`
+        }
         onClick={open}
         onKeyDown={overlay ? undefined : onKeyDown}
         className={`${overlay ? '' : 'cursor-pointer'} rounded-lg p-4 pr-9 text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/40`}
@@ -72,7 +74,9 @@ export default function ApplicationCard({ application, onOpen, overlay = false }
           ) : null}
         </div>
 
-        <h3 className="text-[15px] font-semibold leading-snug text-ink">{application.role}</h3>
+        <h3 className="text-[15px] font-semibold leading-snug text-ink">
+          {application.role}
+        </h3>
         <p className="text-[14px] text-muted">{application.company}</p>
 
         <div className="mt-3 flex items-center justify-between text-[12px] text-muted-soft">
@@ -109,7 +113,13 @@ export default function ApplicationCard({ application, onOpen, overlay = false }
 
 function GripIcon() {
   return (
-    <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+    <svg
+      width="14"
+      height="14"
+      viewBox="0 0 24 24"
+      fill="currentColor"
+      aria-hidden="true"
+    >
       <circle cx="9" cy="6" r="1.6" />
       <circle cx="15" cy="6" r="1.6" />
       <circle cx="9" cy="12" r="1.6" />
