@@ -4,6 +4,7 @@
 
 [![CI](https://github.com/classthandstrategies-ai/job-tracker/actions/workflows/ci.yml/badge.svg)](https://github.com/classthandstrategies-ai/job-tracker/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](./LICENSE)
+[![Live on Vercel](https://img.shields.io/badge/Live%20Demo-jobstack--sepia.vercel.app-000?logo=vercel&logoColor=white)](https://jobstack-sepia.vercel.app)
 [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fclassthandstrategies-ai%2Fjob-tracker)
 
 ---
@@ -17,9 +18,9 @@
 
 ## Live demo
 
-🔗 **[View the live demo →](https://your-deployment-url.vercel.app)**
+🔗 **[jobstack-sepia.vercel.app →](https://jobstack-sepia.vercel.app)**
 
-> _Replace the URL above with your deployment link once you've deployed (see [Deployment](#deployment))._
+Deployed on Vercel with the security headers from [`vercel.json`](./vercel.json) (CSP, `X-Frame-Options`, `X-Content-Type-Options`, `Referrer-Policy`, `Permissions-Policy`).
 
 ## Features
 
