@@ -108,7 +108,6 @@ export default function ApplicationFormModal({
               value={form.company}
               onChange={set('company')}
               placeholder="Acme Inc."
-              autoFocus={!isEdit}
               aria-invalid={companyError}
               aria-describedby={companyError ? 'app-company-error' : undefined}
             />

@@ -43,6 +43,11 @@ export function useApplications() {
   // Lazy initializer: loadFromStorage runs once, not on every render.
   const [applications, setApplications] = useState(loadFromStorage);
 
+  // True when the last write to localStorage failed (quota exceeded, private
+  // mode, storage blocked). Surfaced so the UI can warn the user their changes
+  // may not survive a reload, rather than showing a false success.
+  const [storageError, setStorageError] = useState(false);
+
   // Skip the very first write-back so we don't immediately re-persist the
   // value we just read (a harmless but wasteful round-trip).
   const isFirstRender = useRef(true);
@@ -54,8 +59,11 @@ export function useApplications() {
     }
     try {
       localStorage.setItem(STORAGE_KEY, JSON.stringify(applications));
+      setStorageError(false);
     } catch {
-      // Quota exceeded or storage blocked — nothing useful to do client-side.
+      // Quota exceeded or storage blocked: the in-memory list is fine, but it
+      // won't persist. Flag it so the user can export a backup.
+      setStorageError(true);
     }
   }, [applications]);
 
@@ -91,5 +99,6 @@ export function useApplications() {
     removeApplication,
     clearAll,
     replaceAll,
+    storageError,
   };
 }

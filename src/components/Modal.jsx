@@ -11,22 +11,32 @@ const FOCUSABLE =
  */
 export default function Modal({ title, onClose, children, footer }) {
   const panelRef = useRef(null);
+  // Capture the triggering element during the FIRST render — before React's
+  // commit-phase autoFocus pulls focus into the dialog. Reading it inside the
+  // effect would be too late (autoFocus runs before passive effects), so the
+  // add modal would otherwise "restore" focus to its own unmounted input.
+  const triggerRef = useRef(undefined);
+  if (triggerRef.current === undefined) {
+    triggerRef.current = typeof document !== 'undefined' ? document.activeElement : null;
+  }
 
   useEffect(() => {
     const panel = panelRef.current;
-    // The element focused before the modal opened (the card/chip/button trigger).
-    const previouslyFocused = document.activeElement;
+    const previouslyFocused = triggerRef.current;
 
     const focusable = () =>
       panel
         ? [...panel.querySelectorAll(FOCUSABLE)].filter((el) => el.offsetParent !== null)
         : [];
 
-    // Move focus into the dialog unless an inner control already grabbed it
-    // (e.g. the add form's autoFocus on the Company field).
-    if (panel && !panel.contains(previouslyFocused)) {
+    // Move focus into the dialog unless it's already inside. Prefer the first
+    // form field over the leading close button, so keyboard/AT users land on
+    // the content rather than the dismiss control. `previouslyFocused` is the
+    // outside trigger and is used only for restoration on close.
+    if (panel && !panel.contains(document.activeElement)) {
       const items = focusable();
-      (items[0] ?? panel).focus();
+      const firstField = items.find((el) => el.tagName !== 'BUTTON');
+      (firstField ?? items[0] ?? panel).focus();
     }
 
     const onKey = (e) => {

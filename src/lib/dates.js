@@ -21,10 +21,16 @@ export function todayISO() {
 /** Parse an ISO date-only string into a local Date at midnight. Returns null if blank/invalid. */
 export function parseISODate(iso) {
   if (!iso || typeof iso !== 'string') return null;
+  // Require the exact YYYY-MM-DD shape up front.
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(iso)) return null;
   const [y, m, d] = iso.split('-').map(Number);
-  if (!y || !m || !d) return null;
   const date = new Date(y, m - 1, d);
-  return Number.isNaN(date.getTime()) ? null : date;
+  // The Date constructor rolls over out-of-range parts (2024-02-30 → Mar 1) and
+  // never yields NaN, so verify the components survived the round-trip exactly.
+  if (date.getFullYear() !== y || date.getMonth() !== m - 1 || date.getDate() !== d) {
+    return null;
+  }
+  return date;
 }
 
 /** Today at local midnight. */

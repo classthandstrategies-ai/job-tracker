@@ -73,16 +73,20 @@ export { todayISO };
  * @returns {Application}
  */
 export function createApplication(input = {}) {
+  // Coerce every text field to a string before use. Optional chaining alone
+  // (input.company?.trim()) throws on a non-null non-string (e.g. company: 123
+  // from corrupt/edited storage), which would otherwise crash hydration.
+  const str = (v) => (v == null ? '' : String(v));
   return {
     id: input.id ?? generateId(),
-    company: input.company?.trim() ?? '',
-    role: input.role?.trim() ?? '',
+    company: str(input.company).trim(),
+    role: str(input.role).trim(),
     status: STATUS_VALUES.includes(input.status) ? input.status : DEFAULT_STATUS,
-    dateApplied: input.dateApplied || todayISO(),
-    salary: input.salary ?? '',
-    link: input.link ?? '',
-    notes: input.notes ?? '',
-    nextFollowUp: input.nextFollowUp ?? '',
+    dateApplied: str(input.dateApplied) || todayISO(),
+    salary: str(input.salary),
+    link: str(input.link),
+    notes: str(input.notes),
+    nextFollowUp: str(input.nextFollowUp),
   };
 }
 
@@ -97,5 +101,12 @@ export function createApplication(input = {}) {
 export function normalizeApplication(raw) {
   if (!raw || typeof raw !== 'object') return null;
   if (!('id' in raw)) return null;
-  return createApplication(raw);
+  // Isolate per-record failures: if a single malformed record can't be built,
+  // drop just that one (return null) rather than letting the throw bubble up
+  // and wipe the entire list during hydration.
+  try {
+    return createApplication(raw);
+  } catch {
+    return null;
+  }
 }

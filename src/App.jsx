@@ -16,6 +16,7 @@ function App() {
     updateApplication,
     removeApplication,
     replaceAll,
+    storageError,
   } = useApplications();
 
   const [query, setQuery] = useState('');
@@ -58,6 +59,17 @@ function App() {
       <DashboardHeader applications={applications} />
 
       <main className="mx-auto max-w-[1200px] px-6 py-8">
+        {storageError ? (
+          <div
+            role="alert"
+            className="mb-6 rounded-lg border border-error/30 bg-error/10 px-4 py-3 text-[14px] text-error"
+          >
+            <strong className="font-semibold">Changes aren't being saved.</strong> Your
+            browser blocked local storage (it may be full or in private mode). Export a CSV
+            backup to avoid losing data on reload.
+          </div>
+        ) : null}
+
         {dueFollowUps.length > 0 ? (
           <div className="mb-8">
             <FollowUpBanner dueFollowUps={dueFollowUps} onOpen={openEdit} />

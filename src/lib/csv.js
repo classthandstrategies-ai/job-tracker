@@ -15,11 +15,13 @@ const COLUMNS = [
 /** Quote a single cell if it contains a comma, quote, or newline; double internal quotes. */
 function escapeCell(value) {
   let str = value == null ? '' : String(value);
-  // Neutralize CSV formula injection: a cell beginning with = + - @ (or a tab/CR)
+  // Neutralize CSV formula injection: a cell beginning with = + - @ (or a tab/CR/LF)
   // can execute as a formula when opened in Excel/Sheets. User-controlled fields
-  // (company, role, notes…) could carry a payload like `=HYPERLINK(...)`, so we
-  // prefix such values with an apostrophe to force literal-text interpretation.
-  if (/^[=+\-@\t\r]/.test(str)) {
+  // (company, role, notes…) could carry a payload like `=HYPERLINK(...)`. We test
+  // past any leading whitespace — some apps trim it before evaluating, so
+  // " =cmd" is also dangerous — and prefix the original value with an apostrophe
+  // to force literal-text interpretation.
+  if (/^\s*[=+\-@\t\r\n]/.test(str)) {
     str = `'${str}`;
   }
   if (/[",\n\r]/.test(str)) {
