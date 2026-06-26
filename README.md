@@ -7,18 +7,14 @@
 [![Live on Vercel](https://img.shields.io/badge/Live%20Demo-jobstack--sepia.vercel.app-000?logo=vercel&logoColor=white)](https://jobstack-sepia.vercel.app)
 [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fclassthandstrategies-ai%2Fjob-tracker)
 
+<!-- Hero image: save a screenshot to docs/screenshot.png and uncomment the next line. -->
+<!-- ![Job Tracker](docs/screenshot.png) -->
+
 ---
-
-## Screenshot
-
-<!-- 📸 Add a screenshot or short demo GIF here. Save the file to docs/screenshot.png and uncomment the line below. -->
-<!-- ![Job Tracker board](docs/screenshot.png) -->
-
-> **📸 Add your screenshot here:** drop a still or short GIF at `docs/screenshot.png`, then uncomment the image line above. A wide shot of the board with a few cards plus the dashboard and follow-up banner shows the app off best.
 
 ## Live demo
 
-🔗 **[jobstack-sepia.vercel.app →](https://jobstack-sepia.vercel.app)**
+**[jobstack-sepia.vercel.app →](https://jobstack-sepia.vercel.app)**
 
 Deployed on Vercel with the security headers from [`vercel.json`](./vercel.json) (CSP, `X-Frame-Options`, `X-Content-Type-Options`, `Referrer-Policy`, `Permissions-Policy`).
 
